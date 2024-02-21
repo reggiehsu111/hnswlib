@@ -25,11 +25,9 @@ def interpret_capsule_as_bytes(capsule):
 def dist(a, b, c):
     print("In dist")
     print(a, b, c)
-    print(interpret_capsule_as_bytes(a))
     return 1.0
 
 
 dim = 1
 num_elements = 1000
 p = hnswlib.Index(dist_func=dist, dim=1)
-p.init_index(max_elements=num_elements, ef_construction=20, M=10)

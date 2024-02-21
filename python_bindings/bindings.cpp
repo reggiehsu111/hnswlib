@@ -182,7 +182,7 @@ class Index {
         default_ef = 10;
     }
 
-    Index(const std::function<float(const void *, const void *, const void *)> &py_dist_func, const int dim) : space_name("PySpace"), dim(dim) {
+    Index(const py::function &py_dist_func, const int dim) : space_name("PySpace"), dim(dim) {
         normalize = false;
         l2space = new hnswlib::PySpace(py_dist_func, dim);
         appr_alg = NULL;
@@ -898,7 +898,7 @@ PYBIND11_PLUGIN(hnswlib) {
            /* WARNING: Index::createFromIndex is not thread-safe with Index::addItems */
         .def(py::init(&Index<float>::createFromIndex), py::arg("index"))
         .def(py::init<const std::string &, const int>(), py::arg("space"), py::arg("dim"))
-        .def(py::init<const std::function<float(const void *, const void *, const void *)>, const int>(), py::arg("dist_func"), py::arg("dim"))
+        .def(py::init<const py::function &, const int>(), py::arg("dist_func"), py::arg("dim"))
         .def("init_index",
             &Index<float>::init_new_index,
             py::arg("max_elements"),
