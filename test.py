@@ -16,7 +16,6 @@ def dist(a, b):
 dim = 1
 num_elements = 100
 p = hnswlib.Index(dist_func=dist, dim=1)
-
 p.init_index(max_elements=num_elements, ef_construction=20, M=10)
 
 p.add_items(*create_100_data_points_around(50))

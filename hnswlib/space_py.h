@@ -8,7 +8,7 @@
 
 namespace py = pybind11;
 namespace hnswlib {
-static py::function g_py_dist_func;
+py::function g_py_dist_func;
 
 static float
 call_py_func(const void *pVect1v, const void *pVect2v, const void *qty_ptr) {
@@ -19,7 +19,6 @@ call_py_func(const void *pVect1v, const void *pVect2v, const void *qty_ptr) {
     std::vector<float> v2;
     printf("qty: %d\n", qty);
 
-    float res = 0;
     for (int i = 0; i < qty; i++) {
         v1.push_back(*pVect1);
         v2.push_back(*pVect2);
@@ -29,10 +28,11 @@ call_py_func(const void *pVect1v, const void *pVect2v, const void *qty_ptr) {
     }
     printf("Here\n");
     if (g_py_dist_func) {
-      printf("Has py function\n");
+      printf("Has py function, %p\n", &g_py_dist_func);
+      py::print(g_py_dist_func);
     }
     float ret = g_py_dist_func(v1, v2).cast<float>();
-    printf("res: %.6f\n", res);
+    printf("ret: %.6f\n", ret);
     return ret;
 }
 

@@ -1431,6 +1431,7 @@ class HierarchicalNSW : public AlgorithmInterface<dist_t> {
 
 
     tableint addPoint(const void *data_point, labeltype label, int level) {
+        printf("Inside addPoint\n");
         tableint cur_c = 0;
         {
             // Checking if the element with the same label already exists
